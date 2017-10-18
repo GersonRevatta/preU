@@ -11,6 +11,16 @@
     </div>
   <% end %>
 
+<!--  Descripcion de la category -->
+<center>
+<h2>Exam</h2>
+  <b><%= @category.name%></b> 
+  <br>
+        <%= image_tag  @category.image.url  %>
+        <br>
+<%= raw @category.content %>
+
+</center>
 
  <!-- Boton Modal-->
  <center>

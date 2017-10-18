@@ -17,7 +17,7 @@
   </p>  
     <p>
     <%= f.label 'Seleccione otra imagen' %>
-    <%= f.file_field :image ,{:value => @category.image} %>
+    <%= f.file_field :image , :accept =>'.pdf,.gif,.jpeg,.jpg'  %>
   </p>
   
   <p>
