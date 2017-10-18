@@ -1,0 +1,98 @@
+<!-- Mensajes de error -->
+<% if @category.errors.any? %>
+    <div id="errorExplanation">
+      <h2><%= pluralize(@category.errors.count, "error") %> prohibited
+        this post from being saved:</h2>
+      <ul>
+        <% @category.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+       <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+
+ <!-- Boton Modal-->
+ <center>
+   
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Add +</button>
+
+ </center>
+<!-- Exams -->
+<h3>Exams</h3>
+<div>
+  <% @categories.each do |i|%>
+    <%if i.tipo == 'Examen'%>
+     <div>
+        <p>Title : <%= i.name %></p>
+        <%= image_tag  i.image.thumb.url %>
+        |<%= link_to "show " , new_category_theme_path(i.id)  %>
+        |<%= link_to "Edit", edit_category_path(i.id) %>
+        |<%= link_to "Eliminar" , { :action => :destroy, :id => (i.id) }, :method => :delete,data: { confirm: '¿Estás seguro?' }   %>
+     </div>
+    <%end%>
+  <% end %>
+</div>
+<!--Cursos Ofrecidos -->
+<h3>Courses</h3>
+<div>
+  <% @categories.each do |i|%>
+    <%if i.tipo == 'Categoria'%>
+      <div>
+        <p>Title : <%= i.name %></p>
+        <%= image_tag  i.image.thumb.url  %>
+        |<%= link_to "show " , new_category_level_path(i.id)  %>
+        |<%= link_to "Edit", edit_category_path(i.id) %>
+        |<%= link_to "Eliminar" , { :action => :destroy, :id => (i.id) }, :method => :delete,data: { confirm: '¿Estás seguro?' }  %>
+      </div>
+    <%end%>
+  <% end %>
+</div>
+
+
+
+<!-- formulario -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Categoria</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <!-- Formulario -->
+            <%= form_for (@category),:url => { :action => :create }   do |f| %> 
+               <p> 
+                  <%= f.label :name, "Título" %>
+                  <br />
+                  <%= f.text_field :name  %>
+               </p>
+               <p>
+                       <%= f.label :tipo %>
+                       <%= f.radio_button  :tipo ,'Examen', :checked => true %>Examen
+                       <%= f.radio_button :tipo ,'Categoria' %>Categoria
+               </p>
+               <p>
+                <%= f.label :image %>
+                <%= f.file_field :image , :id => 'imagen' ,:accept =>'.pdf,.gif,.jpeg,.jpg' %>
+               </p>
+               <p>
+                            <%= f.label :content, "Descripcion" %>
+                            <br />
+                            <%= f.cktext_area :content  %>
+               </p>
+               <p> 
+                  <%= f.submit "Enviar" %> 
+               </p>
+            <%end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+

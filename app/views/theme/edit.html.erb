@@ -1,0 +1,21 @@
+<center>
+  <%= form_for @theme , :url => { :action => :update }  , :method => :put do |f| %>
+  <!-- Campos -->
+    <p>
+      <%= f.label :name %><br>
+      <%= f.text_field :name , { :value => @theme.name } %>
+    </p>
+    <p>
+    <%= f.label 'Imagen Actual' %>
+      <%= image_tag  @theme.image.thumb.url  %>
+    </p>  
+      <p>
+      <%= f.label 'Seleccione otra imagen' %>
+      <%= f.file_field :image ,{:value => @category.image} %>
+    </p>
+    
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>  
+</center>

@@ -1,0 +1,110 @@
+<!-- Mensajes de error -->
+<% if @level.errors.any? %>
+    <div id="errorExplanation">
+      <h2><%= pluralize(@level.errors.count, "error") %> prohibited
+        this post from being saved:</h2>
+      <ul>
+        <% @level.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+       <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <!-- Boton Modal-->
+ <center>
+   
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Add +</button>
+
+ </center>
+
+
+<!-- Obbjetos BASICO-->
+<h3>Basico</h3>
+<% @levels.each do |i| %>
+  <%if i.tipo == 'Basico'%>
+    <p>Title : <%= i.name %></p>
+    <%= image_tag  i.image.thumb.url  %>
+    |show
+    |<%= link_to "edit", edit_category_level_path(i.category_id , i.id) %>
+    |<%= link_to "Eliminar" , { :action => :destroy, :id => (i.id) }, :method => :delete ,data: { confirm: '¿Estás seguro?' }  %>
+  <%end%>
+<% end %>
+
+
+
+<!-- Obbjetos Intermedio-->
+<h3>Intermedio</h3>
+<% @levels.each do |i| %>
+  <%if i.tipo == 'Intermedio'%>
+    <p>Title : <%= i.name %></p>
+    <%= image_tag  i.image.thumb.url  %>
+    |show
+    |<%= link_to "edit", edit_category_level_path(i.category_id , i.id) %>
+    |<%= link_to "Eliminar" , { :action => :destroy, :id => (i.id) }, :method => :delete ,data: { confirm: '¿Estás seguro?' }  %>
+  <%end%>
+<% end %>
+
+
+
+<!-- Obbjetos Avanzado-->
+<h3>Avanzado</h3>
+<% @levels.each do |i| %>
+    <%if i.tipo == 'Avanzado'%>
+    <p>Title : <%= i.name %></p>
+    <%= image_tag  i.image.thumb.url  %>
+    |show
+    |<%= link_to "edit", edit_category_level_path(i.category_id , i.id) %>
+    |<%= link_to "Eliminar" , { :action => :destroy, :id => (i.id) }, :method => :delete ,data: { confirm: '¿Estás seguro?' }  %>
+  <%end%>
+<% end %>
+
+
+<!-- formulario -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add theme for  level</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <!-- Formulario -->
+            <%= form_for ([@category,@level]),:url => { :action => :create }   do |f| %>  
+            <!-- Campos -->
+               <p> 
+                  <%= f.label :name, "Título" %>
+                  <br />
+                  <%= f.text_field :name  %>
+               </p>
+               <p>
+                <%= f.label :image %>
+                <%= f.file_field :image , :id => 'imagen' ,:accept =>'.pdf,.gif,.jpeg,.jpg' %>
+               </p>
+               <p>
+                       <%= f.label :tipo %>
+                       <%= f.radio_button  :tipo ,'Basico', :checked => true %>Basico
+                       <%= f.radio_button :tipo ,'Intermedio' %>Intermedio
+                       <%= f.radio_button :tipo ,'Avanzado' %>Avanzado
+
+               </p>
+               <p>
+                            <%= f.label :content, "Descripcion" %>
+                            <br />
+                            <%= f.cktext_area :content  %>
+               </p>
+               <p> 
+                     <%= f.submit "Enviar" %> 
+               </p>
+              <%end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+

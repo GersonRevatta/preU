@@ -1,0 +1,25 @@
+<%= form_for (@category),:url => { :action => :update }  , :method => :put do |f|  %> 
+
+<!-- Campos -->
+   <p> 
+      <%= f.label :name, "Título" %>
+      <br />
+      <%= f.text_field :name  ,{ :value => @category.name } %>
+   </p>
+   
+   <p>
+    <label >Imagen Actual</label>
+    <%= image_tag  @category.image.thumb.url  %>
+    <br>
+    <%= f.label :image , 'Cambiar Imagen '%>
+    <%= f.file_field :image , :id => 'imagen' ,:accept =>'.pdf,.gif,.jpeg,.jpg' %>
+   </p>
+   <p>
+      <%= f.label :content, "Descripcion"  %>
+      <br />
+      <%= f.cktext_area :content   ,{ :value => @category.content }%>
+   </p>
+   <p> 
+      <%= f.submit "Enviar" %> 
+   </p>
+<%end %>

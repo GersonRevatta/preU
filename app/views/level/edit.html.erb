@@ -1,0 +1,27 @@
+
+<%= form_for @level, :url => { :action => :update }  , :method => :put do |f| %>
+  <!-- Mensajes de error -->
+
+<!-- Campos -->
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name , { :value => @level.name } %>
+  </p>
+    <p>
+    <%= f.label :content %><br>
+    <%= f.cktext_area  :content , { :value => @level.content } %>
+  </p>
+  <p>
+  <%= f.label 'Imagen Actual' %>
+    <%= image_tag  @level.image.thumb.url  %>
+  </p>  
+    <p>
+    <%= f.label 'Seleccione otra imagen' %>
+    <%= f.file_field :image ,{:value => @category.image} %>
+  </p>
+  
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
